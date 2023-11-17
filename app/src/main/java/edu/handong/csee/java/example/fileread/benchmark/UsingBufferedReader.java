@@ -2,64 +2,48 @@ package edu.handong.csee.java.example.fileread.benchmark;
 
 import java.io.*;
 
-/**
- * Created by sherxon on 4/23/17. https://github.com/sherxon/AlgoDS/tree/master/src/oi
- */
 public class UsingBufferedReader {
     public static void main(String[] args) throws IOException {
+        if (args.length != 1) {
+            System.out.println("Please provide a valid argument: 1MB, 10MB, 100MB, 1000MB");
+            return;
+        }
 
+        String inputFilePath = "";
+        long fileSize = 0;
 
-        //-------------- Test reading 1 MB file. --------------------
+        // Set file path and size based on user-provided argument
+        if (args[0].equalsIgnoreCase("input1MB")) {
+            inputFilePath = DumpDataWriter.input1MB;
+            fileSize = DumpDataWriter.size1MB;
+        } else if (args[0].equalsIgnoreCase("input10MB")) {
+            inputFilePath = DumpDataWriter.input10MB;
+            fileSize = DumpDataWriter.size10MB;
+        } else if (args[0].equalsIgnoreCase("input100MB")) {
+            inputFilePath = DumpDataWriter.input100MB;
+            fileSize = DumpDataWriter.size100MB;
+        } else if (args[0].equalsIgnoreCase("input1000MB")) {
+            inputFilePath = DumpDataWriter.input1000MB;
+            fileSize = DumpDataWriter.size1000MB;
+        } else {
+            System.out.println("Invalid argument. Please use 1MB, 10MB, 100MB, or 1000MB.");
+            return;
+        }
 
+        // Start measuring time
         StopWatch.start();
 
-        BufferedReader inputStream= new BufferedReader(new FileReader(DumpDataWriter.input1MB));
-        while (inputStream.read()!=-1){}
+        // Reading the file using BufferedReader
+        BufferedReader inputStream = new BufferedReader(new FileReader(inputFilePath));
+        while (inputStream.read() != -1) {
+            // Reading the file until the end
+        }
 
+        // Stop measuring time and print the result
         long duration = StopWatch.stop();
         System.out.println(duration + " milsec");
-        
+
+        // Close BufferedReader
         inputStream.close();
-
-
-        //-------------- Test reading 10 MB file. --------------------
-
-        StopWatch.start();
-
-        BufferedReader inputStream2= new BufferedReader(new FileReader(DumpDataWriter.input10MB));
-        while (inputStream2.read()!=-1){}
-
-        long duration2 = StopWatch.stop();
-        System.out.println(duration2 + " milsec");
-
-        inputStream2.close();
-
-        /*
-        //-------------- Test reading 100 MB file. --------------------
-
-        StopWatch.start();
-
-        BufferedReader inputStream3= new BufferedReader(new FileReader(DumpDataWriter.input100MB));
-        while (inputStream3.read()!=-1){}
-
-        long duration3 = StopWatch.stop();
-        System.out.println(duration3 + " milsec");
-        
-        inputStream3.close();
-
-
-        //-------------- Test reading 1000 MB file. --------------------
-
-
-        StopWatch.start();
-
-        BufferedReader inputStream4= new BufferedReader(new FileReader(DumpDataWriter.input1000MB));
-        while (inputStream4.read()!=-1){}
-
-        long duration4 = StopWatch.stop();
-        System.out.println(duration4 + " milsec");
-        
-        inputStream4.close();
-        */
     }
 }
